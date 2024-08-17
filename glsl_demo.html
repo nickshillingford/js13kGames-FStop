@@ -1,0 +1,80 @@
+<html>
+<head>
+  <style>
+    body, html { margin:0;padding:0;overflow:hidden; }
+    canvas { display:block;width:100%;height:100%; }
+  </style>
+</head>
+<body>
+    <canvas id="cv"></canvas>
+    <script>
+        const cv = document.getElementById('cv');
+        const gl = cv.getContext('webgl2');
+
+        cv.width = window.innerWidth;
+        cv.height = window.innerHeight;
+
+        let vertSrc = `#version 300 es
+            precision highp float;
+            in vec4 a_position;
+            out vec2 v_uv;
+            void main() {
+                gl_Position = a_position;
+                v_uv = (a_position.xy + 1.0) * 0.5;
+            }
+        `;
+
+        let fragSrc = `#version 300 es
+            precision highp float;
+            in vec2 v_uv;
+            out vec4 fragColor;
+            uniform float time;
+            uniform vec2 resolution;
+            void main() {
+                vec2 uv = gl_FragCoord.xy / resolution.xy;
+                vec3 col = sin(time + uv.xyx + vec3(0, 2, 4));
+                fragColor = vec4(col, 1.0);
+            }
+        `;
+
+        let getShader = (gl, type, src) => {
+            const s = gl.createShader(type);
+            gl.shaderSource(s, src);
+            gl.compileShader(s);
+            return s;
+        }
+
+        let getProgram = (gl, vert, frag) => {
+            const p = gl.createProgram();
+            gl.attachShader(p, vert);
+            gl.attachShader(p, frag);
+            gl.linkProgram(p);
+            return p;
+        }
+
+        const vert = getShader(gl, gl.VERTEX_SHADER, vertSrc);
+        const frag = getShader(gl, gl.FRAGMENT_SHADER, fragSrc);
+        const prog = getProgram(gl, vert, frag);
+        const quad = new Float32Array([-1.0,1.0,-1.0,-1.0,1.0,1.0,1.0,-1.0,]);
+
+        gl.bindVertexArray(gl.createVertexArray());
+        gl.bindBuffer(gl.ARRAY_BUFFER, gl.createBuffer());
+        gl.bufferData(gl.ARRAY_BUFFER, quad, gl.STATIC_DRAW);
+        const loc = gl.getAttribLocation(prog, "a_position");
+        gl.enableVertexAttribArray(loc);
+        gl.vertexAttribPointer(loc, 2, gl.FLOAT, false, 0, 0);
+        const start = performance.now();
+
+        let render = () => {
+            gl.viewport(0, 0, cv.width, cv.height);
+            gl.useProgram(prog);
+            gl.uniform1f(gl.getUniformLocation(prog, "time"), ((performance.now() - start) / 1000.0));
+            gl.uniform2f(gl.getUniformLocation(prog, "resolution"), cv.width, cv.height);
+            gl.drawArrays(gl.TRIANGLE_STRIP, 0, 4);
+            requestAnimationFrame(render);
+        }
+
+        render();
+    </script>
+</body>
+</html>
