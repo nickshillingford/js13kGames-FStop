@@ -1,0 +1,93 @@
+body {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  background-color: black;
+  color: #fff;
+  font-family: 'Arial', sans-serif;
+  overflow: hidden;
+}
+.title-screen {
+  text-align: center;
+}
+.title {
+  font-size: 48px;
+  margin-bottom: 30px;
+}
+.label, .controls-label {
+  font-size: 24px;
+}
+.dropdown-container {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 60px;
+}
+.dropdown {
+  width: 200px;
+  padding: 10px;
+  font-size: 18px;
+  border: 1px solid #fff;
+  background-color: transparent;
+  color: white;
+  outline: none;
+  cursor: pointer;
+  appearance: none;
+}
+.dropdown option {
+  background-color: #d8bfd8;
+  color: #000;
+}
+.controls-section {
+  margin-bottom: 50px;
+}
+.controls-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  grid-gap: 15px 30px;
+  font-size: 18px;
+  justify-items: center;
+}
+.grid-item {
+  text-align: center;
+}
+.start-button {
+  font-size: 24px;
+  padding: 10px 20px;
+  color: white;
+  background: none;
+  border: none;
+  text-decoration: underline;
+  cursor: pointer;
+}
+.start-button:hover {
+  text-decoration: none;
+  color: #ddd;
+}
+#mobileWarning, #webglWarning {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 100vw;
+  height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0;
+}
+#mobileWarning {
+  color: white;
+  background-color: black;
+}
+#webglWarning {
+  color: black;
+  background-color: white;
+}
+#cameraInfo {
+  position: fixed;
+  left: 3%;
+  bottom: 3%;
+  font-family: arial;
+  color: #fff;
+}
