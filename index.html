@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>f-stop</title>
+  <link rel="stylesheet" href="css/style.css">
+  <script src="js/core/Global.js"></script>
+</head>
+<body>
+  <div class="title-screen" id="content">
+    <h1 class="title">f-stop</h1>
+    <label class="label">Select Viewport Size</label>
+    <br><br>
+    <div class="dropdown-container">
+      <select id="dropdown" class="dropdown">
+        <option value="small"></option>
+        <option value="medium"></option>
+        <option value="large"></option>
+      </select>
+    </div>
+    <label class="controls-label">Controls</label>
+    <br><br><br>
+    <div class="controls-section">
+      <div class="controls-grid">
+        <div class="grid-item">W - Move Forward</div>
+        <div class="grid-item">A - Move Left</div>
+        <div class="grid-item">S - Move Backward</div>
+        <div class="grid-item">D - Move Right</div>
+        <div class="grid-item">L - Camera Height</div>
+        <div class="grid-item">Escape - Disengage Camera</div>
+        <div class="grid-item">Left / Right Arrow - Aperture</div>
+        <div class="grid-item">Up / Down Arrow - Focus</div>
+        <div class="grid-item">Mouse Click - Engage Camera</div>
+        <div class="grid-item">Mouse - Look Around</div>
+      </div>
+    </div>
+    <button class="start-button" onclick="startGame()">start</button>
+  </div>
+  <div id="mobileWarning" style="display:none">
+    <h2>Screen too small</h2>
+  </div>
+  <div id="webglWarning" style="display:none">
+    <h2>WebGL 2 not detected and is required</h2>
+  </div>
+  <div id="cameraInfo">
+  <script type="module" src="js/core/Main.js"></script>
+</body>
+</html>
